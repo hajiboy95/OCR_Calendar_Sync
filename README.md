@@ -94,7 +94,7 @@ Before using the calendar sync functionality, you’ll need to provide a mapping
 
 You can use the provided `calendar_categories_example.json` file as a starting point:
 
-1. **Duplicate** `calendar_categories_example.json` and rename it to `calendar_categories.json` (or any name you prefer).
+1. You can use `calendar_categories_example.json` as a draft for your calendar categories file.
 2. **Edit** the file and replace the placeholder values with your actual calendar names and IDs.
    >💡 You can find the Calendar ID in your [Google Calendar settings](https://calendar.google.com/calendar/u/0/r/settings), under the section labeled **Calendar ID**.
 
@@ -102,13 +102,17 @@ You can use the provided `calendar_categories_example.json` file as a starting p
 
 ### 3. 🔄 Category-Based Calendar Mapping (Optional)
 
-If you want to route different types of events to different calendars:
+To route different types of events to specific calendars, define a category-to-calendar mapping in your environment configuration:
 
 ```env
 CALENDAR_CATEGORY_MAP={"Work": "work_id@group.calendar.google.com", "Private": "myemail@gmail.com"}
 ```
 
-Make sure **each mapped calendar is also shared** with the service account as described above.
+> ✅ **Note:** At least one category is required. This can simply point to your main calendar if you don't need multiple categories.
+
+> ⚠️ **Important:** Each calendar listed must be **shared with your service account**, as described in the setup instructions.
+
+Additionally, update the relevant prompt in `lib/config/prompt_manager.py` to reflect the calendar categories you've defined. This allows the system to recognize and properly route events based on their category.
 
 ## 🧪 Requirements
 
