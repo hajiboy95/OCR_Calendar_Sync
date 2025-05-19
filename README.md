@@ -1,6 +1,6 @@
-# 🧠 LLM_Calendar_Sync
+# 🧠 OCR_Calendar_Sync
 
-**LLM_Calendar_Sync** is an intelligent tool that extracts calendar events from PDFs or images using OCR-powered Large Language Models (LLMs), and syncs them directly to your Google Calendar.
+**OCR_Calendar_Sync** is an intelligent tool that extracts calendar events from PDFs or images using OCR-powered Large Language Models (LLMs), and syncs them directly to your Google Calendar.
 
 ## 📦 Project Structure
 
@@ -135,4 +135,3 @@ streamlit run main.py
 ## 📝 License
 
 MIT License © 2025
-# OCR_Calendar_Sync
