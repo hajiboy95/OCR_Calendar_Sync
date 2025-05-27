@@ -20,6 +20,7 @@
  ┃ ┃ ┣ 📜process_calendar_extraction.py
  ┃ ┃ ┗ 📜select_date.py
  ┣ 📜.env_example
+ ┣ 📜calendar_categories_example.json
  ┣ 📜LICENSE
  ┣ 📜README.md
  ┣ 📜main.py
