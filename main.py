@@ -65,28 +65,50 @@ with col1:
             st.error(f"Fehler beim Abrufen der Ollama-Modelle: {e}")
 
 with col2:
+    # Initialize standard prompt once
+    if "prompt_name" not in st.session_state:
+        st.session_state["prompt_name"] = "Calendar"
+
     prompt_manager = PromptManager()
+
+    # Select prompt
     st.selectbox(
         "Wähle einen Prompt aus",
         prompt_manager.get_prompt_names(),
         key="prompt_name",
     )
+
+    # Set draft based on selection
     prompt_manager.set_prompt_draft(name=st.session_state["prompt_name"], key="prompt")
+
     st.session_state["template_specific"] = (
         "Gib jeden Termin im Format der **Google Calendar API** aus.\n\nKeine weiteren Erklärungen oder Zusatztexte."
     )
 
     if st.session_state["prompt_name"] in ["Calendar"]:
         select_event_date()
-    prompt_manager.merge_prompt_components(
-        ["prompt"]
-        + (["date"] if st.session_state["prompt_name"] in ["Calendar"] else [])
-    )
+
+    if st.session_state["prompt_name"] != "Custom":
+        prompt_manager.merge_prompt_components(
+            ["prompt"]
+            + (["date"] if st.session_state["prompt_name"] in ["Calendar"] else [])
+        )
+
+
+# When the user edits the textarea manually, switch prompt to "Custom"
+def on_prompt_text_change():
+    if st.session_state.get("prompt_name") != "Custom":
+        st.session_state["prompt_name"] = "Custom"
+
 
 # Expander for prompt selection and editing
 with st.expander("🔧 Prompt ändern", expanded=False):
-    st.text_area("Prompt an das Modell senden", height=200, key="final_prompt")
-
+    st.text_area(
+        "Zusätzlicher Systemprompt",
+        height=200,
+        key="final_prompt",
+        on_change=on_prompt_text_change,
+    )
 if (
     st.session_state["backend"] == "Ollama (Local)"
     and st.session_state.get("mime_type") == "application/pdf"
